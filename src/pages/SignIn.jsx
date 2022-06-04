@@ -12,12 +12,64 @@ function SignIn() {
   const { email, password } = formData;
   const navigate = useNavigate();
 
+  const changeHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  console.log(formData);
   return (
     <>
       <div className='pageContainer'>
         <header>
           <p className='pageHeader'>Welcome Back!</p>
         </header>
+
+        <form>
+          <input
+            type='email'
+            className='emailInput'
+            placeholder='Email'
+            id='email'
+            value={email}
+            onChange={changeHandler}
+          />
+
+          <div className='passwordInputDiv'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className='passwordInput'
+              placeholder='Password'
+              id='password'
+              value={password}
+              onChange={changeHandler}
+            />
+
+            <img
+              src={visibilityIcon}
+              alt='show password'
+              className='showPassword'
+              onClick={() => setShowPassword(!showPassword)}
+            />
+          </div>
+          <Link to='/forgot-password' className='forgotPasswordLink'>
+            Forgot Password
+          </Link>
+
+          <div className='signInBar'>
+            <p className='signInText'>Sign In</p>
+            <button className='signInButton'>
+              <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
+            </button>
+          </div>
+        </form>
+        {/* Google OAuth */}
+
+        <Link to='/sign-up' className='registerLink'>
+          Sign Up Instead
+        </Link>
       </div>
     </>
   );

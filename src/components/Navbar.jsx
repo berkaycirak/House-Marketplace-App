@@ -8,7 +8,7 @@ function Navbar() {
   //useNavigate will return a function that helps us to navigate what we want.
   const navigate = useNavigate();
   //useLocation will return a location object, when we navigate our page, that location object changes according to page.
-  console.log('hello');
+
   const location = useLocation();
 
   // This function will check the route and location whether true or not.
