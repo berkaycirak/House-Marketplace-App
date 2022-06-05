@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
+import OAuth from '../components/OAuth';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -41,7 +43,7 @@ function SignUp() {
         password
       );
 
-      // You can get the actual user info here which will be using in database.
+      // You can get the actual user info here which will be using in database. Usercredential also contains uid even if you don't create uid, above function will automatically create a uid.
       const user = userCredential.user;
 
       // You can reach the current user with currentUser method on auth, and update the profile.
@@ -63,7 +65,9 @@ function SignUp() {
 
       // After sign-up process, we redirect the page.
       navigate('/');
-    } catch (error) {}
+    } catch (error) {
+      toast.error('Something went wrong with registration');
+    }
   };
 
   return (
@@ -114,12 +118,12 @@ function SignUp() {
 
           <div className='signUpBar'>
             <p className='signUpText'>Sign Up</p>
-            <button className='signUpButton'>
+            <button type='submit' className='signUpButton'>
               <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
             </button>
           </div>
         </form>
-        {/* Google OAuth */}
+        <OAuth />
 
         <Link to='/sign-in' className='registerLink'>
           Sign In Instead
