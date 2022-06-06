@@ -77,6 +77,7 @@ function CrateListing() {
       // we can get lat and long data when user submit the form by using geolocation. According to adress, geolocation will return us a data about location data.
       geolocation.lat = data.features[0]?.geometry.coordinates[1] ?? 0;
       geolocation.lng = data.features[0]?.geometry.coordinates[0] ?? 0;
+      // If user enter an invalid adress, then api will return an empty data array.
       location = data.features.length === 0 ? undefined : data.query.text;
       console.log(data);
 
