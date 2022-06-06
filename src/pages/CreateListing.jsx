@@ -2,9 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import { toast } from 'react-toastify';
 
 function CrateListing() {
-  const [geolocationEnabled, setGeolocationEnable] = useState(false);
+  const [geolocationEnabled, setGeolocationEnable] = useState(true);
 
   const [loading, setLoading] = useState(false);
 
@@ -43,9 +44,54 @@ function CrateListing() {
   const auth = getAuth();
   const navigate = useNavigate();
   const isMounted = useRef(true);
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+
+    if (discountedPrice >= regularPrice) {
+      setLoading(false);
+      toast.error('Discounted price needs to be less than regular price');
+      return;
+    }
+
+    if (images.length > 6) {
+      setLoading(false);
+      toast.error('Max 6 images');
+      return;
+    }
+
+    let geolocation = {};
+    let location;
+
+    // If user don't allow to use geolocation, then else block will run, and user will type data manually.
+    if (geolocationEnabled) {
+      const response = await fetch(
+        `https://api.geoapify.com/v1/geocode/search?text=${address}&apiKey=${API_KEY}`
+      );
+
+      const data = await response.json();
+
+      // we can get lat and long data when user submit the form by using geolocation. According to adress, geolocation will return us a data about location data.
+      geolocation.lat = data.features[0]?.geometry.coordinates[1] ?? 0;
+      geolocation.lng = data.features[0]?.geometry.coordinates[0] ?? 0;
+      location = data.features.length === 0 ? undefined : data.query.text;
+      console.log(data);
+
+      if (location === undefined || location.includes('undefined')) {
+        setLoading(false);
+        toast.error('Please enter a correct adress');
+        return;
+      }
+    } else {
+      geolocation.lat = latitude;
+      geolocation.lng = longitude;
+      location = address;
+    }
+
+    setLoading(false);
   };
   const onMutate = (e) => {
     let boolean = null;
