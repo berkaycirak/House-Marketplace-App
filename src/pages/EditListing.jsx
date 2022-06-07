@@ -57,7 +57,7 @@ function EditListing() {
   // Redirect if listing is not user's
   useEffect(() => {
     if (listing && listing.userRef !== auth.currentUser.uid) {
-      toast.error('You can not edit that listing');
+      toast.error('Error ! You can not edit that listing');
       navigate('/');
     }
   });
