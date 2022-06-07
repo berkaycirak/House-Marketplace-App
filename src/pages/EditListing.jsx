@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import Spinner from '../components/Spinner';
 function EditListing() {
+  // eslint-disable-next-line
   const [geolocationEnabled, setGeolocationEnable] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -94,7 +95,7 @@ function EditListing() {
     return () => {
       isMounted.current = false;
     };
-    // eslint-disable-nex-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [isMounted]);
 
   const onSubmit = async (e) => {
