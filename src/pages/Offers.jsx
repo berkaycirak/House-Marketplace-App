@@ -55,6 +55,7 @@ function Offers() {
 
   return (
     <div className='category'>
+      {console.log(listings)}
       <header>
         <p className='pageHeader'>Offers</p>
       </header>
