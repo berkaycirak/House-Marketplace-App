@@ -92,6 +92,7 @@ button {
 .category,
 .explore {
   margin: 1rem;
+  margin-bottom: 5rem;
 }
 @media (min-width: 1024px) {
   .pageContainer,
@@ -264,7 +265,7 @@ button {
 }
 
 .socialLogin {
-  margin-top: 4rem;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -289,11 +290,11 @@ button {
 }
 
 .registerLink {
-  margin-top: 4rem;
+  margin-top: 2rem;
   color: #00cc66;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 @media (min-width: 1217px) {
@@ -301,9 +302,12 @@ button {
     margin-bottom: 10rem;
   }
 }
-@media (max-height: 536) {
+@media (max-height: 667px) {
   .explore {
     margin-bottom: 10rem;
+  }
+  .registerLink {
+    margin-bottom: 8rem;
   }
 }
 
